@@ -1,0 +1,153 @@
+<mxfile host="app.diagrams.net" modified="2026-05-11T15:40:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="makroanalys-data-flow" name="makroanalys data flow">
+    <mxGraphModel dx="1800" dy="1150" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1150" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="Makroanalys data stream map" style="text;html=1;strokeColor=none;fillColor=none;fontSize=28;fontStyle=1;fontColor=#d9fff1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="640" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="Where data comes from, where it is stored, and where it is used. Green = stored tables, blue = processing, pink = AI/output, yellow = data source." style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontColor=#9fdcca;align=left;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="42" y="65" width="1100" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="lane_sources" value="External sources" style="swimlane;html=1;rounded=0;startSize=28;fillColor=#100f05;strokeColor=#fcee09;fontColor=#fcee09;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="300" height="900" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane_fetch" value="Fetch and ingestion" style="swimlane;html=1;rounded=0;startSize=28;fillColor=#041015;strokeColor=#00d4ff;fontColor=#00d4ff;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="120" width="310" height="900" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane_store" value="Storage" style="swimlane;html=1;rounded=0;startSize=28;fillColor=#03120c;strokeColor=#00ff9f;fontColor=#00ff9f;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="120" width="390" height="900" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane_process" value="Synthesis and inference" style="swimlane;html=1;rounded=0;startSize=28;fillColor=#080916;strokeColor=#bd00ff;fontColor=#d8b8ff;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="120" width="300" height="900" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane_output" value="Outputs" style="swimlane;html=1;rounded=0;startSize=28;fillColor=#160711;strokeColor=#ff2d75;fontColor=#ff9fc0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="120" width="220" height="900" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="src_markets" value="Market prices&lt;br&gt;Yahoo Finance&lt;br&gt;yfinance live quotes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2c2700;strokeColor=#fcee09;fontColor=#fff7b0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="170" width="230" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="src_macro" value="Macro indicators&lt;br&gt;FRED, ECB, World Bank&lt;br&gt;CPI, rates, GDP, labour, trade" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2c2700;strokeColor=#fcee09;fontColor=#fff7b0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="270" width="230" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="src_events" value="Events and geopolitics&lt;br&gt;GDELT GKG, ACLED,&lt;br&gt;manual seeds, CB changes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2c2700;strokeColor=#fcee09;fontColor=#fff7b0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="390" width="230" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="src_passive" value="Passive feeds&lt;br&gt;Open-Meteo, Reddit,&lt;br&gt;SEC Form 4, SEC facts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2c2700;strokeColor=#fcee09;fontColor=#fff7b0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="510" width="230" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="src_policy" value="Policy and reading feed&lt;br&gt;OFAC sanctions XML&lt;br&gt;RSS: Fed, ECB, IMF, WTO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2c2700;strokeColor=#fcee09;fontColor=#fff7b0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="630" width="230" height="86" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cron" value="src/cron_daily.py&lt;br&gt;daily orchestrator&lt;br&gt;continues after step failures" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#041b24;strokeColor=#00d4ff;fontColor=#c8f7ff;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="170" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="fetch_core" value="Core fetchers&lt;br&gt;yahoo.py, fred.py,&lt;br&gt;ecb.py, worldbank.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#041b24;strokeColor=#00d4ff;fontColor=#c8f7ff;" vertex="1" parent="1">
+          <mxGeometry x="430" y="285" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="fetch_events" value="Event fetchers&lt;br&gt;gdelt.py, acled.py,&lt;br&gt;seed_events.py, cb_calendar.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#041b24;strokeColor=#00d4ff;fontColor=#c8f7ff;" vertex="1" parent="1">
+          <mxGeometry x="430" y="405" width="230" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="fetch_passive" value="Passive fetchers&lt;br&gt;weather.py, reddit.py,&lt;br&gt;edgar_form4.py, edgar_facts.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#041b24;strokeColor=#00d4ff;fontColor=#c8f7ff;" vertex="1" parent="1">
+          <mxGeometry x="430" y="535" width="230" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="fetch_policy" value="Policy/news fetchers&lt;br&gt;sanctions.py&lt;br&gt;rss_news.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#041b24;strokeColor=#00d4ff;fontColor=#c8f7ff;" vertex="1" parent="1">
+          <mxGeometry x="430" y="665" width="230" height="76" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="db" value="SQLite database&lt;br&gt;data/macro_engine.db" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#032016;strokeColor=#00ff9f;fontColor=#d9fff1;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="795" y="155" width="290" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="tables_core" value="Core market/macro tables&lt;br&gt;prices, indicators, signals&lt;br&gt;targets" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#042418;strokeColor=#00ff9f;fontColor=#d9fff1;" vertex="1" parent="1">
+          <mxGeometry x="805" y="290" width="270" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="tables_events" value="Event and risk tables&lt;br&gt;events, calendar_events,&lt;br&gt;risk_hotspots, gdelt_disaster_signals" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#042418;strokeColor=#00ff9f;fontColor=#d9fff1;" vertex="1" parent="1">
+          <mxGeometry x="805" y="405" width="270" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="tables_passive" value="Passive/raw tables&lt;br&gt;weather_obs, social_mentions,&lt;br&gt;insider_trades, company_fundamentals" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#042418;strokeColor=#00ff9f;fontColor=#d9fff1;" vertex="1" parent="1">
+          <mxGeometry x="805" y="535" width="270" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="tables_policy" value="Policy and reading tables&lt;br&gt;sanctions&lt;br&gt;news_items (not prediction input)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#042418;strokeColor=#00ff9f;fontColor=#d9fff1;" vertex="1" parent="1">
+          <mxGeometry x="805" y="665" width="270" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="tables_ai" value="AI/result tables&lt;br&gt;predictions, briefings&lt;br&gt;rumour_signals, weather_correlations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#042418;strokeColor=#00ff9f;fontColor=#d9fff1;" vertex="1" parent="1">
+          <mxGeometry x="805" y="780" width="270" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="qdrant" value="Qdrant vector index&lt;br&gt;retrieval/build_index.py&lt;br&gt;historical macro-state analogues" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#071a25;strokeColor=#00d4ff;fontColor=#d9fff1;" vertex="1" parent="1">
+          <mxGeometry x="805" y="905" width="270" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="signals" value="Signal synthesis&lt;br&gt;signals/compute.py&lt;br&gt;returns, RSI, MA, macro regime" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#120b24;strokeColor=#bd00ff;fontColor=#e8d9ff;" vertex="1" parent="1">
+          <mxGeometry x="1225" y="175" width="230" height="82" as="geometry"/>
+        </mxCell>
+        <mxCell id="layer2" value="Layer-2 synthesis&lt;br&gt;rumours.py&lt;br&gt;weather_correlations.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#120b24;strokeColor=#bd00ff;fontColor=#e8d9ff;" vertex="1" parent="1">
+          <mxGeometry x="1225" y="300" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="retrieval" value="Analogue retrieval&lt;br&gt;retrieval/query.py&lt;br&gt;top-K similar macro states" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#120b24;strokeColor=#bd00ff;fontColor=#e8d9ff;" vertex="1" parent="1">
+          <mxGeometry x="1225" y="425" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="prompt" value="Prompt assembly&lt;br&gt;inference/prompt.py&lt;br&gt;signals + macro + events + calendar + sanctions + disasters + analogues" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#120b24;strokeColor=#bd00ff;fontColor=#e8d9ff;" vertex="1" parent="1">
+          <mxGeometry x="1225" y="545" width="230" height="106" as="geometry"/>
+        </mxCell>
+        <mxCell id="claude" value="Claude Haiku API&lt;br&gt;predict.py + briefing.py&lt;br&gt;tool-forced structured outputs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#210b27;strokeColor=#ff2d75;fontColor=#ffd9e6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1225" y="700" width="230" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="score" value="Calibration&lt;br&gt;score.py&lt;br&gt;realised returns when horizons mature" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#120b24;strokeColor=#bd00ff;fontColor=#e8d9ff;" vertex="1" parent="1">
+          <mxGeometry x="1225" y="835" width="230" height="76" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="dash" value="Frontend/API consumers&lt;br&gt;src/core/api.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2a0715;strokeColor=#ff2d75;fontColor=#ffd9e6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1565" y="175" width="170" height="66" as="geometry"/>
+        </mxCell>
+        <mxCell id="pages" value="Pages&lt;br&gt;Overview: map, brief, catalysts&lt;br&gt;Markets: prices, signals, tape&lt;br&gt;Predictions: buckets, rationale, accuracy&lt;br&gt;News: RSS only&lt;br&gt;Data: health, raw feeds, targets" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2a0715;strokeColor=#ff2d75;fontColor=#ffd9e6;" vertex="1" parent="1">
+          <mxGeometry x="1555" y="300" width="190" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="logs" value="Logs&lt;br&gt;data/logs&lt;br&gt;one file per module" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1d1821;strokeColor=#8b949e;fontColor=#e6edf3;" vertex="1" parent="1">
+          <mxGeometry x="1565" y="500" width="170" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="actions" value="Human actions&lt;br&gt;edit targets&lt;br&gt;inspect sources&lt;br&gt;compare predictions vs outcomes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2a0715;strokeColor=#ff2d75;fontColor=#ffd9e6;" vertex="1" parent="1">
+          <mxGeometry x="1565" y="630" width="170" height="92" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#fcee09;endArrow=block;endFill=1;" edge="1" parent="1" source="src_markets" target="fetch_core"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#fcee09;endArrow=block;endFill=1;" edge="1" parent="1" source="src_macro" target="fetch_core"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#fcee09;endArrow=block;endFill=1;" edge="1" parent="1" source="src_events" target="fetch_events"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#fcee09;endArrow=block;endFill=1;" edge="1" parent="1" source="src_passive" target="fetch_passive"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#fcee09;endArrow=block;endFill=1;" edge="1" parent="1" source="src_policy" target="fetch_policy"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e6" value="runs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00d4ff;fontColor=#00d4ff;endArrow=block;endFill=1;" edge="1" parent="1" source="cron" target="fetch_core"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00d4ff;endArrow=block;endFill=1;" edge="1" parent="1" source="cron" target="fetch_events"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00d4ff;endArrow=block;endFill=1;" edge="1" parent="1" source="cron" target="fetch_passive"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00d4ff;endArrow=block;endFill=1;" edge="1" parent="1" source="cron" target="fetch_policy"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00ff9f;endArrow=block;endFill=1;" edge="1" parent="1" source="fetch_core" target="tables_core"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00ff9f;endArrow=block;endFill=1;" edge="1" parent="1" source="fetch_events" target="tables_events"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00ff9f;endArrow=block;endFill=1;" edge="1" parent="1" source="fetch_passive" target="tables_passive"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00ff9f;endArrow=block;endFill=1;" edge="1" parent="1" source="fetch_policy" target="tables_policy"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00ff9f;endArrow=block;endFill=1;" edge="1" parent="1" source="tables_core" target="signals"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00ff9f;endArrow=block;endFill=1;" edge="1" parent="1" source="tables_passive" target="layer2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00ff9f;endArrow=block;endFill=1;" edge="1" parent="1" source="signals" target="tables_core"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00ff9f;endArrow=block;endFill=1;" edge="1" parent="1" source="layer2" target="tables_ai"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00d4ff;endArrow=block;endFill=1;" edge="1" parent="1" source="tables_core" target="qdrant"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00d4ff;endArrow=block;endFill=1;" edge="1" parent="1" source="qdrant" target="retrieval"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e20" value="context" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#bd00ff;fontColor=#d8b8ff;endArrow=block;endFill=1;" edge="1" parent="1" source="tables_core" target="prompt"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e21" value="events/risk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#bd00ff;fontColor=#d8b8ff;endArrow=block;endFill=1;" edge="1" parent="1" source="tables_events" target="prompt"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e22" value="sanctions only&lt;br&gt;RSS excluded" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#bd00ff;fontColor=#d8b8ff;endArrow=block;endFill=1;" edge="1" parent="1" source="tables_policy" target="prompt"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#bd00ff;endArrow=block;endFill=1;" edge="1" parent="1" source="retrieval" target="prompt"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ff2d75;endArrow=block;endFill=1;" edge="1" parent="1" source="prompt" target="claude"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e25" value="predictions + briefings" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ff2d75;fontColor=#ff9fc0;endArrow=block;endFill=1;" edge="1" parent="1" source="claude" target="tables_ai"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#bd00ff;endArrow=block;endFill=1;" edge="1" parent="1" source="tables_ai" target="score"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e27" value="realised_return" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#bd00ff;fontColor=#d8b8ff;endArrow=block;endFill=1;" edge="1" parent="1" source="score" target="tables_ai"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ff2d75;endArrow=block;endFill=1;" edge="1" parent="1" source="db" target="dash"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ff2d75;endArrow=block;endFill=1;" edge="1" parent="1" source="dash" target="pages"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8b949e;endArrow=block;endFill=1;" edge="1" parent="1" source="cron" target="logs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ff2d75;endArrow=block;endFill=1;" edge="1" parent="1" source="pages" target="actions"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
