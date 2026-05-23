@@ -38,3 +38,6 @@ Claude_journal.md
 .vscode/
 *.swp
 .claude/settings.local.json
+
+# Local planning/checklists
+docs/productization.md
