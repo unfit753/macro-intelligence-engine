@@ -3,14 +3,17 @@
 Macro Intelligence Engine is an open-source backend for gathering, normalizing,
 scoring, and evaluating macro and geopolitical risk intelligence.
 
-It is the data engine behind a future map-first visualization frontend. This
+It is the data engine behind the mock-data frontend demo,
+[Macro Atlas Web](https://github.com/unfit753/macro-atlas-web). This
 repository deliberately focuses on the backend: public data fetchers,
 idempotent pipelines, source health, current-event synthesis, historical
 as-of state, context packs, forecast logs, and backtest/evaluation tools.
 
-The frontend should live in a sibling repository, for example
-`macro-atlas-web`, and consume this engine through exported JSON, a small API
-wrapper around `src.core.api`, or a sanitized demo database.
+The sibling frontend is
+[Macro Atlas Web](https://github.com/unfit753/macro-atlas-web), with a
+static mock-data demo at https://unfit753.github.io/macro-atlas-web/. It can
+later consume this engine through exported JSON, a small API wrapper around
+`src.core.api`, or a sanitized demo database.
 
 **Research only. Not investment advice. Forecasts are probabilistic and may be
 wrong. No suitability assessment is performed. Users are responsible for their
@@ -35,8 +38,9 @@ own decisions.**
 
 This backend is not the final product UI.
 
-The intended frontend is a separate map-first application that can visualize
-engine output as:
+The intended frontend is the separate map-first
+[Macro Atlas Web](https://github.com/unfit753/macro-atlas-web) application.
+The current public demo uses mock data, but it can visualize engine output as:
 
 - world-map overlays,
 - marker explainers,
@@ -62,7 +66,6 @@ src/inference/      prompt, prediction, briefing, scoring
 src/local_model/    optional local model experiments
 src/backtest/       walk-forward forecast lab
 data/               local DB helpers and ignored runtime data
-docs/               public boundary, inventory, and readiness notes
 tests/              unit tests for queries, events, scoring, and compliance
 ```
 
