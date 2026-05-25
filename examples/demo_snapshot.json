@@ -1,0 +1,189 @@
+{
+  "generated_at": "2026-05-23T14:00:00Z",
+  "description": "Synthetic demo data for the Macro Intelligence Engine terminal explorer.",
+  "source_health": [
+    {
+      "source": "Market close prices",
+      "cadence": "daily close",
+      "rows": 1800,
+      "latest": "2026-05-23",
+      "age": "today",
+      "status": "ok"
+    },
+    {
+      "source": "Macro calendar",
+      "cadence": "manual/daily",
+      "rows": 42,
+      "latest": "2026-06-14",
+      "age": "future",
+      "status": "ok"
+    },
+    {
+      "source": "Current events canary",
+      "cadence": "15m",
+      "rows": 18,
+      "latest": "2026-05-23T13:58:00Z",
+      "age": "0h",
+      "status": "ok"
+    },
+    {
+      "source": "News stream sample",
+      "cadence": "hourly",
+      "rows": 260,
+      "latest": "2026-05-22T20:00:00Z",
+      "age": "18h",
+      "status": "stale"
+    }
+  ],
+  "current_events": [
+    {
+      "id": 1,
+      "event_type": "scheduled_catalyst",
+      "display_title": "US inflation release window",
+      "display_summary": "Inflation surprise can reprice rates, USD, equities, and gold.",
+      "why_text": "The mock event is included to show how the engine surfaces near-term macro catalysts.",
+      "event_time": "2026-05-24T12:30:00Z",
+      "region": "US",
+      "category": "inflation",
+      "priority": 5,
+      "affected_assets_json": ["SPY", "TLT", "DX-Y.NYB", "GC=F"]
+    },
+    {
+      "id": 2,
+      "event_type": "breaking_news",
+      "display_title": "Shipping lane risk remains elevated",
+      "display_summary": "Route disruption can feed energy risk premium and freight costs.",
+      "why_text": "The mock event demonstrates market-moving risk news without using live fetched articles.",
+      "event_time": "2026-05-23T13:20:00Z",
+      "region": "Middle East",
+      "category": "risk",
+      "priority": 4.7,
+      "affected_assets_json": ["CL=F", "BZ=F", "XLE"]
+    },
+    {
+      "id": 3,
+      "event_type": "source_alert",
+      "display_title": "News stream sample delayed",
+      "display_summary": "One demo source is intentionally marked stale.",
+      "why_text": "Source health rows should be visible to users before any signal is trusted.",
+      "event_time": "2026-05-23T14:00:00Z",
+      "region": "Global",
+      "category": "source_health",
+      "priority": 3.2,
+      "affected_assets_json": []
+    }
+  ],
+  "market_tape": [
+    {
+      "symbol": "GC=F",
+      "name": "Gold",
+      "asset_class": "commodity",
+      "move_1d": 0.86,
+      "prediction_direction": "up",
+      "prediction_horizon": "1m",
+      "prediction_confidence": 0.62,
+      "prediction_range": "+1.2% to +3.8%",
+      "prediction_rationale": "Event risk and real-yield sensitivity keep the synthetic skew positive."
+    },
+    {
+      "symbol": "CL=F",
+      "name": "WTI Crude",
+      "asset_class": "energy",
+      "move_1d": 1.12,
+      "prediction_direction": "up",
+      "prediction_horizon": "2w",
+      "prediction_confidence": 0.58,
+      "prediction_range": "+0.8% to +4.1%",
+      "prediction_rationale": "Route risk is the visible driver in the demo snapshot."
+    },
+    {
+      "symbol": "TLT",
+      "name": "US Duration",
+      "asset_class": "rates",
+      "move_1d": -0.28,
+      "prediction_direction": "down",
+      "prediction_horizon": "1w",
+      "prediction_confidence": 0.55,
+      "prediction_range": "-1.4% to +0.3%",
+      "prediction_rationale": "Inflation event risk keeps duration pressure in the sample."
+    },
+    {
+      "symbol": "SPY",
+      "name": "S&P 500 ETF",
+      "asset_class": "equity_index",
+      "move_1d": 0.42,
+      "prediction_direction": "flat",
+      "prediction_horizon": "1w",
+      "prediction_confidence": 0.51,
+      "prediction_range": "-0.6% to +1.1%",
+      "prediction_rationale": "The mock equity read is mixed while macro event risk is unresolved."
+    }
+  ],
+  "next_macro_catalysts": [
+    {
+      "title": "US CPI",
+      "category": "inflation",
+      "region": "US",
+      "release_date": "2026-05-24",
+      "importance": 5,
+      "expected": "Core inflation watched for rate-path repricing.",
+      "previous_value": "n/a",
+      "source": "synthetic calendar"
+    },
+    {
+      "title": "Euro area policy communication",
+      "category": "policy",
+      "region": "Euro Area",
+      "release_date": "2026-05-29",
+      "importance": 4,
+      "expected": "Language around services inflation and cuts.",
+      "previous_value": "n/a",
+      "source": "synthetic calendar"
+    },
+    {
+      "title": "Sweden CPIF",
+      "category": "inflation",
+      "region": "Sweden",
+      "release_date": "2026-05-30",
+      "importance": 3,
+      "expected": "Local inflation sensitivity for SEK and rates.",
+      "previous_value": "n/a",
+      "source": "synthetic calendar"
+    }
+  ],
+  "data_catalog": [
+    {
+      "object_id": "current_events",
+      "display_name": "Current events",
+      "description": "Unified event rows for macro catalysts, source alerts, and market-moving signals.",
+      "source_table": "current_events",
+      "frontend_group": "events",
+      "cadence": "15m",
+      "rows": 18,
+      "latest": "2026-05-23T13:58:00Z",
+      "status": "ok"
+    },
+    {
+      "object_id": "market_tape",
+      "display_name": "Market tape",
+      "description": "Asset moves and optional forecast metadata for public display.",
+      "source_table": "prices",
+      "frontend_group": "markets",
+      "cadence": "daily close",
+      "rows": 1800,
+      "latest": "2026-05-23",
+      "status": "ok"
+    },
+    {
+      "object_id": "source_health",
+      "display_name": "Source health",
+      "description": "Freshness checks and status labels for the public data boundary.",
+      "source_table": "source_runs",
+      "frontend_group": "ops",
+      "cadence": "every pipeline",
+      "rows": 74,
+      "latest": "2026-05-23T13:58:00Z",
+      "status": "ok"
+    }
+  ]
+}

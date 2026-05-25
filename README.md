@@ -3,17 +3,11 @@
 Macro Intelligence Engine is an open-source backend for gathering, normalizing,
 scoring, and evaluating macro and geopolitical risk intelligence.
 
-It is the data engine behind the mock-data frontend demo,
-[Macro Atlas Web](https://github.com/unfit753/macro-atlas-web). This
-repository deliberately focuses on the backend: public data fetchers,
-idempotent pipelines, source health, current-event synthesis, historical
-as-of state, context packs, forecast logs, and backtest/evaluation tools.
-
-The sibling frontend is
-[Macro Atlas Web](https://github.com/unfit753/macro-atlas-web), with a
-static mock-data demo at https://unfit753.github.io/macro-atlas-web/. It can
-later consume this engine through exported JSON, a small API wrapper around
-`src.core.api`, or a sanitized demo database.
+The project is intentionally backend-first. It focuses on public data fetchers,
+idempotent pipelines, source health, current-event synthesis, historical as-of
+state, context packs, forecast logs, and backtest/evaluation tools. A frontend
+can consume sanitized exports later, but this repository should be useful on its
+own through its API boundary and terminal explorer.
 
 **Research only. Not investment advice. Forecasts are probabilistic and may be
 wrong. No suitability assessment is performed. Users are responsible for their
@@ -31,32 +25,53 @@ own decisions.**
 - Builds compact context packs for forecast generation and later audit.
 - Stores forecast records with input hashes, rationale, risks, confidence, and
   eventual scoring.
-- Provides read-only query/API functions for web frontends, notebooks, and
-  notebook-style analysis.
+- Provides read-only query/API functions and a terminal explorer for inspecting
+  the public data boundary.
 
-## Frontend Boundary
+## Terminal Explorer
 
-This backend is not the final product UI.
+The terminal explorer is a dependency-free TUI-style browser for the engine's
+read-only data surfaces.
 
-The intended frontend is the separate map-first
-[Macro Atlas Web](https://github.com/unfit753/macro-atlas-web) application.
-The current public demo uses mock data, but it can visualize engine output as:
+Run it against the bundled synthetic demo snapshot:
 
-- world-map overlays,
-- marker explainers,
-- macro release cards,
-- market tape,
-- source health,
-- forecast and backtest views.
+```bash
+PYTHONPATH=. python3 -m src.cli.explorer --demo
+```
 
-The old Streamlit cockpit has been removed from this backend repo so the public
-project does not advertise an unfinished frontend. Use `src.core.api` and
-`src.core.queries` as the boundary for future visualizers.
+Render one view and exit:
+
+```bash
+PYTHONPATH=. python3 -m src.cli.explorer --demo --view overview
+PYTHONPATH=. python3 -m src.cli.explorer --demo --view current-events --detail 1
+PYTHONPATH=. python3 -m src.cli.explorer --demo --view market-tape --json
+```
+
+Run it against a real local SQLite database:
+
+```bash
+MACRO_ENGINE_DB_PATH=data/macro_engine.db \
+PYTHONPATH=. python3 -m src.cli.explorer --view source-health
+```
+
+Available views:
+
+- `overview`
+- `source-health`
+- `current-events`
+- `market-tape`
+- `catalysts`
+- `data-catalog`
+
+The demo snapshot under `examples/demo_snapshot.json` is synthetic. It is not
+fetched data, not a private database export, and not live research output.
 
 ## Repository Layout
 
 ```text
 config/             DB path, logging, schema setup
+examples/           small synthetic demo fixtures
+src/cli/            terminal explorer and command-line surfaces
 src/fetchers/       public data connectors
 src/core/           read-only queries, API facade, labels, source registry
 src/intelligence/   current events, context packs, historical state, pressure graph
@@ -66,12 +81,11 @@ src/inference/      prompt, prediction, briefing, scoring
 src/local_model/    optional local model experiments
 src/backtest/       walk-forward forecast lab
 data/               local DB helpers and ignored runtime data
-tests/              unit tests for queries, events, scoring, and compliance
+tests/              unit tests for queries, events, scoring, compliance, CLI
 ```
 
-Some internal schema names still use `oracle_*` identifiers because they were
-created before this public backend framing. They are legacy implementation
-names, not the public project identity.
+Some internal schema identifiers are legacy names from an earlier private
+prototype. Treat `src.core.api` and `src.core.queries` as the public boundary.
 
 ## Setup
 
@@ -160,17 +174,10 @@ analogue index rebuilds, and scoring:
 PYTHONPATH=. .venv/bin/python -m src.cron_daily
 ```
 
-Example crontab using local repo paths:
-
-```cron
-*/15 * * * *  cd /path/to/macro-intelligence-engine && PYTHONPATH=. .venv/bin/python -m src.cron_frequent >> data/logs/cron_frequent.log 2>&1
-0 22 * * *    cd /path/to/macro-intelligence-engine && PYTHONPATH=. .venv/bin/python -m src.cron_daily >> data/logs/cron_daily.log 2>&1
-```
-
 ## Public Data Boundary
 
-The repository should contain code, schema, tests, docs, and small fixtures
-only. It should not contain:
+The repository should contain code, schema, tests, docs, and small synthetic
+fixtures only. It should not contain:
 
 - `.env` files or credentials,
 - API keys or bearer tokens,
